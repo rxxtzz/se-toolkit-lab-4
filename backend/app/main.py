@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.app.auth import verify_api_key
 from backend.app.routers import interactions, items, learners
 from backend.app.settings import settings
+from app.routers import interactions, items, learners
+from app.settings import settings
 
 app = FastAPI()
 
