@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     # Environment variables
 
     db_name: str = Field(default="postgres", alias="DB_NAME")
-    
+
     app_name: str = Field(default="Learning Management Service", alias="NAME")
     debug: bool = Field(default=False, alias="DEBUG")
     address: str = Field(default="127.0.0.1", alias="ADDRESS")
