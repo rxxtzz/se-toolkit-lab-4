@@ -10,7 +10,7 @@ from app.settings import settings
 
 def get_database_url() -> str:
     return (
-        f"postgresql+asyncpg://{settings.db_user}:{settings.db_password}"
+        f"postgresql+asyncpg://{settings.db_user}:{settings.db_password}@{settings.db_host}"
         f"@{settings.db_host}:{settings.db_port}/{settings.db_name}"
     )
 
