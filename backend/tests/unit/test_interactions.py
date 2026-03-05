@@ -2,7 +2,17 @@
 
 from app.models.interaction import InteractionLog
 from app.routers.interactions import _filter_by_item_id
+import httpx
 
+
+def test_get_interactions_returns_200(client: httpx.Client) -> None:
+    response = client.get("/interactions/")
+    assert response.status_code == 200
+
+
+def test_get_interactions_response_is_a_list(client: httpx.Client) -> None:
+    response = client.get("/interactions/")
+    assert isinstance(response.json(), list)
 
 def _make_log(id: int, learner_id: int, item_id: int) -> InteractionLog:
     return InteractionLog(id=id, learner_id=learner_id, item_id=item_id, kind="attempt")
@@ -25,15 +35,13 @@ def test_filter_returns_interaction_with_matching_ids() -> None:
     assert len(result) == 1
     assert result[0].id == 1
 
-# backend/tests/unit/test_interactions.py
 
 def test_filter_excludes_interaction_with_different_learner_id() -> None:
-    """Test that filter includes interactions with matching item_id but different learner_id."""
     interactions = [
-        _make_log(1, 1, 1),  # id=1, learner_id=1, item_id=1
-        _make_log(2, 2, 1),  # id=2, learner_id=2, item_id=1 - этот должен быть включен
-        _make_log(3, 1, 2),  # id=3, learner_id=1, item_id=2
-        _make_log(4, 2, 2),  # id=4, learner_id=2, item_id=2
+        _make_log(1, 1, 1),
+        _make_log(2, 2, 1),
+        _make_log(3, 1, 2),
+        _make_log(4, 2, 2),
     ]
 
     result = _filter_by_item_id(interactions, 1)
