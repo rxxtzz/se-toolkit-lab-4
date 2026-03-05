@@ -3,7 +3,7 @@
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.auth import verify_api_key
+from backend.app.auth import verify_api_key
 from app.routers import interactions, items, learners
 from app.settings import settings
 
